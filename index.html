@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root { --accent: #3182F6; }
+
+  body {
+    font-family: 'Spoqa Han Sans Neo', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    font-size: 9.5pt;
+    color: #222;
+    background: #fff;
+    padding: 28px 36px;
+    line-height: 1.55;
+    max-width: 794px;
+    margin: 0 auto;
+  }
+
+  /* ── 헤더 ── */
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid #222;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+  }
+  .name { font-size: 22pt; font-weight: 700; letter-spacing: -0.5px; }
+  .contacts { font-size: 8.3pt; color: #444; text-align: right; line-height: 1.6; }
+  .contacts a { color: #333; text-decoration: underline; text-underline-offset: 2px; }
+  .contacts a:hover { color: #111; }
+
+  /* ── 요약 ── */
+  .summary {
+    font-size: 9pt;
+    color: #444;
+    line-height: 1.8;
+    margin-bottom: 28px;
+    border-left: 3px solid var(--accent);
+    padding-left: 12px;
+  }
+
+  /* ── 직책 ── */
+  .company-role { font-size: 8.3pt; color: #666; margin: -6px 0 10px; }
+
+  /* ── 프로젝트 그룹 ── */
+  .proj-group { margin-bottom: 28px; }
+  .proj-group-header {
+    margin-bottom: 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ddd;
+  }
+  .proj-group-title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 3px;
+  }
+  .proj-group-name { font-size: 10pt; font-weight: 700; }
+  .proj-group-name a { color: inherit; text-decoration: none; }
+  .proj-group-name a:hover { text-decoration: underline; }
+  .proj-group-desc { font-size: 8pt; color: #777; font-style: italic; flex: 1; }
+  .proj-group-desc a { color: #555; text-decoration: underline; text-underline-offset: 2px; }
+  .proj-group-desc a:hover { color: #222; }
+  .proj-group-period { font-size: 8.3pt; color: #666; white-space: nowrap; }
+
+  /* ── 섹션 공통 ── */
+  .section { margin-bottom: 26px; }
+  .section-title {
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #111;
+    border-bottom: 1.5px solid #333;
+    padding-bottom: 3px;
+    margin-bottom: 12px;
+  }
+
+  /* ── 기술 ── */
+  .skill-row { display: flex; margin-bottom: 5px; font-size: 9pt; }
+  .skill-label { width: 96px; font-weight: 600; color: #333; flex-shrink: 0; }
+  .skill-val { color: #444; }
+
+  /* ── 경력 전체 래퍼 ── */
+  .company-block { margin-bottom: 20px; }
+  .company-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .company-name { font-size: 11.5pt; font-weight: 700; }
+  .company-name a { color: inherit; text-decoration: none; }
+  .company-name a:hover { text-decoration: underline; }
+  .company-period { font-size: 8.3pt; color: #666; }
+  .company-desc { font-size: 8pt; color: #777; font-style: italic; margin-bottom: 10px; }
+
+  /* ── 프로젝트 단위 ── */
+  .proj-item { margin-bottom: 18px; padding-left: 12px; border-left: 2px solid #ddd; }
+  .proj-item.fsd-item { margin-top: 10px; }
+  .proj-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
+  }
+  .proj-title { font-size: 9.5pt; font-weight: 700; text-wrap: balance; }
+  .proj-link { font-size: 7.5pt; font-weight: 400; color: var(--accent); text-decoration: none; margin-left: 6px; white-space: nowrap; }
+  .proj-link:hover { text-decoration: underline; }
+  .proj-period { font-size: 8.3pt; color: #888; }
+  .proj-stack { font-size: 8pt; color: #777; font-style: italic; margin-bottom: 6px; }
+
+  ul.bullets { list-style: none; padding-left: 0; }
+  ul.bullets li {
+    padding-left: 12px;
+    position: relative;
+    font-size: 8.8pt;
+    color: #333;
+    margin-bottom: 5px;
+    line-height: 1.7;
+  }
+  ul.bullets li::before {
+    content: '•';
+    position: absolute;
+    left: 2px;
+    color: #777;
+  }
+  ul.bullets li b { color: #111; font-weight: 600; }
+
+  /* ── 수상 ── */
+  .award-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8.8pt;
+    margin-bottom: 10px;
+    line-height: 1.55;
+  }
+  .award-left { flex: 1; }
+  .award-name { font-weight: 600; }
+  .award-desc { color: #555; font-size: 8.2pt; }
+  .award-year { color: #777; font-size: 8.2pt; white-space: nowrap; padding-left: 16px; }
+
+  /* ── Writing ── */
+  .writing-intro { font-size: 9pt; color: #444; margin-bottom: 12px; line-height: 1.7; }
+  .writing-list { display: flex; flex-direction: column; gap: 10px; }
+  .writing-item a {
+    font-size: 9pt;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .writing-item a:hover { text-decoration: underline; }
+  .writing-desc { font-size: 8.3pt; color: #555; margin-top: 2px; line-height: 1.5; }
+
+  /* ── 학력 ── */
+  .edu-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8.8pt;
+    margin-bottom: 3px;
+  }
+  .edu-school { font-weight: 600; }
+  .edu-dept { color: #555; }
+  .edu-year { color: #777; white-space: nowrap; }
+
+  @media print {
+    body { padding: 20px 28px; }
+    .proj-item,
+    .award-row,
+    .edu-row,
+    ul.bullets li {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    @page { margin: 0; size: A4; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<div class="header-row">
+  <div class="name">이효린</div>
+  <div class="contacts">
+    <a href="https://github.com/hyorish03">github.com/hyorish03</a> &nbsp;|&nbsp;
+    <a href="https://www.linkedin.com/in/%ED%9A%A8%EB%A6%B0-%EC%9D%B4-9110b22a1/">linkedin.com/in/효린-이</a> &nbsp;|&nbsp;
+    <a href="https://hyorish03.tistory.com">hyorish03.tistory.com</a>
+  </div>
+</div>
+
+<!-- 요약 -->
+<div class="summary">
+  불확실한 요구사항 환경에서 MVP를 빠르게 구체화하고 운영 가능한 구조로 확장해온 프론트엔드 개발자입니다. 실시간 데이터 대시보드 안정화, 대규모 트리 탐색 UX 재설계, E2E 테스트 체계 구축을 통해 복잡한 도메인 문제를 구조적으로 해결했습니다. 복잡한 경험을 단순하게 만드는 것을 중요하게 여기며, 신뢰할 수 있는 인터랙션과 일관된 사용자 경험을 추구합니다.
+</div>
+
+<!-- 기술 -->
+<div class="section">
+  <div class="section-title">Technical Skills</div>
+  <div class="skill-row"><span class="skill-label">Frontend</span><span class="skill-val">React, TypeScript, Zustand, TanStack Query, shadcn/ui, ECharts</span></div>
+  <div class="skill-row"><span class="skill-label">Testing</span><span class="skill-val">Playwright, E2E 테스트 설계, Page Object Model</span></div>
+  <div class="skill-row"><span class="skill-label">UI / UX</span><span class="skill-val">IA 설계, 사용자 플로우 설계, 복잡한 경험 단순화, 실시간 대시보드 UI, 프로토타이핑</span></div>
+  <div class="skill-row"><span class="skill-label">Tools</span><span class="skill-val">Git, ESLint, 기술 문서화, 팀 컨벤션 수립, AI 기반 테스트 작성</span></div>
+</div>
+
+<!-- 경력 -->
+<div class="section">
+  <div class="section-title">Experience &amp; Projects</div>
+
+  <!-- 엑셈 -->
+  <div class="company-block">
+    <div class="company-header">
+      <span class="company-name">엑셈 (Exem)</span>
+      <span class="company-period">2025.04 – 현재</span>
+    </div>
+    <div class="company-role">Frontend Developer · LLM플랫폼 팀</div>
+
+    <!-- eXemble 프로젝트 -->
+    <div class="proj-group">
+      <div class="proj-group-header">
+        <div class="proj-group-title-row">
+          <span class="proj-group-name">eXemble</span>
+          <span class="proj-group-desc"><a href="https://ex-em.com/ko/service/llmops" target="_blank" rel="noopener noreferrer">온프레미스·폐쇄망 환경에 특화된 LLMOps 플랫폼</a></span>
+          <span class="proj-group-period">2025.10 – 현재</span>
+        </div>
+        <div class="proj-stack">React · TypeScript · Zustand · TanStack Query · ECharts · Playwright</div>
+      </div>
+
+      <div class="proj-item">
+        <div class="proj-header">
+          <span class="proj-title">실시간 대시보드 툴팁 동기화 개선<a class="proj-link" href="https://hyorish03.tistory.com/56" target="_blank" rel="noopener noreferrer">블로그 ↗</a></span>
+        </div>
+        <ul class="bullets">
+          <li>실시간 데이터가 <b>10초마다</b> 유입되는 대시보드에서 <b>6개 메트릭 차트</b>의 툴팁 동기화가 깨져, 같은 시점의 데이터를 보고도 차트마다 다른 값을 해석하게 되는 문제를 해결했습니다.</li>
+          <li>차트별 API 응답 시점 차이와 React 상태, ECharts 인스턴스의 업데이트 타이밍 불일치로 인해 동기화 기준이 흔들린다는 점을 파악하고, 실제 시간 값을 기준으로 툴팁을 동기화하도록 재설계했습니다.</li>
+          <li>ECharts 인스턴스 대신 React prop을 source of truth로 전환하고 <b>requestAnimationFrame</b> 기반 보정을 적용해, 사용자가 여러 차트의 값을 동일 시점 기준으로 안정적으로 비교할 수 있는 실시간 대시보드를 구현했습니다. 이후 동일 패턴으로 동기화 깨짐 현상이 재발하지 않았습니다.</li>
+        </ul>
+      </div>
+
+      <div class="proj-item">
+        <div class="proj-header">
+          <span class="proj-title">대규모 트리 탐색을 고려한 문서 관리 UX 재설계</span>
+        </div>
+
+        <ul class="bullets">
+          <li>문서 업로드 시 업로드할 위치를 직접 입력해야 하는 구조로 인해 오류와 반복 문의가 발생하는 문제를 확인하고, 실제 작업 흐름에 맞는 탐색 기반 UX 재설계를 제안했습니다.</li>
+          <li>사용자는 경로를 기억하기보다 폴더를 탐색하며 작업한다는 점에 맞춰 macOS Finder를 레퍼런스로 IA와 화면 플로우를 재설계하고, 업로드 위치가 현재 탐색 중인 폴더 기준으로 자동 결정되도록 구현했습니다.</li>
+          <li>최대 <b>10만 건</b>까지 커질 수 있는 트리 구조를 고려해 API Pagination을 제안하고 virtualization을 적용해 화면에는 <b>20개 내외의 요소만 DOM</b>에 유지되도록 최적화했습니다.</li>
+          <li>그 결과 경로 입력 오류로 <b>2주간 15건</b> 유입되던 고객 문의가 개편 이후에는 추가 유입되지 않았고, 약 <b>1초</b>가 걸리던 트리 토글 동작도 거의 지연 없이 동작하도록 개선했습니다.</li>
+        </ul>
+      </div>
+
+      <div class="proj-item">
+        <div class="proj-header">
+          <span class="proj-title">QA 공백 환경에서 E2E 테스트 체계 구축<a class="proj-link" href="https://ex-em.com/ko/blog/ai-test-code-automation-experience-lessons-learned" target="_blank" rel="noopener noreferrer">블로그 ↗</a></span>
+        </div>
+
+        <ul class="bullets">
+          <li>QA 인력 부재로 실제 사용자 플로우 검증이 수동 점검에 의존했고, 기능별 분기 테스트가 반복되며 릴리즈 리스크가 누적되는 상황에서 E2E 중심 테스트 체계를 설계했습니다.</li>
+          <li>자연어 입력을 테스트 코드로 변환하는 AI 에이전트를 구현해 반복 테스트 작성 비용을 절감하고, 배포 전 기능 검증 시간을 약 <b>10분 → 30~60초</b>로 단축하며 약 <b>20개</b> 분기 테스트를 자동화했습니다.</li>
+          <li>핵심 사용자 플로우 <b>12개</b>를 기준으로 Playwright E2E 테스트와 병렬 실행 구조, Page Object Model을 도입하고, 셀렉터 우선순위 및 스코프 기반 로케이터 전략을 포함한 테스트 작성 규칙을 문서화했습니다.</li>
+        </ul>
+      </div>
+
+      <div class="proj-item fsd-item">
+        <div class="proj-header">
+          <span class="proj-title">FSD 기반 프론트엔드 구조 재설계<a class="proj-link" href="https://hyorish03.tistory.com/57" target="_blank" rel="noopener noreferrer">블로그 ↗</a></span>
+        </div>
+
+        <ul class="bullets">
+          <li>페이지 중심으로 구조가 확장되며 변경 영향 범위를 예측하기 어려워졌고, 기능 수정 시 연관 파일을 <b>7~8개</b>씩 탐색해야 하는 비효율이 반복되어 FSD 기반 구조 재설계를 주도했습니다.</li>
+          <li>Atomic Design, 도메인 단순 분리, FSD를 비교 검토한 뒤 UI 단위 분류만으로는 비즈니스 로직 경계를 통제하기 어렵다고 판단했고, 기존 코드를 전면 전환하는 대신 신규 기능부터 점진적으로 적용하는 방식을 선택했습니다.</li>
+          <li>"2개 이상의 entity 결합 시 feature로 분리" 규칙과 FSD 공식 린터 steiger를 적용해 예측 가능한 변경 범위를 유지할 수 있는 개발 환경을 만들었고, 기능 변경 시 파일 탐색 단계를 <b>7~8개에서 2~3단계</b>로 줄여 개발 리드타임과 리뷰 효율을 개선했습니다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Xtract 프로젝트 -->
+    <div class="proj-group">
+      <div class="proj-group-header">
+        <div class="proj-group-title-row">
+          <span class="proj-group-name">Xtract</span>
+          <span class="proj-group-desc">전사 활용 가능한 RAG 성능 평가 서비스</span>
+          <span class="proj-group-period">2025.05 – 2025.09</span>
+        </div>
+        <div class="proj-stack">React · TypeScript · Zustand · TanStack Query · shadcn/ui</div>
+      </div>
+
+      <div class="proj-item">
+        <div class="proj-header">
+          <span class="proj-title">사업 검증을 위한 RAG 평가 MVP 설계 및 구현</span>
+        </div>
+        <ul class="bullets">
+          <li>유저 페르소나와 사용 시나리오를 정의하고 Builder.io를 활용해 <b>2일 내</b> 프로토타입을 제작해, 기획과 구현 사이의 피드백 루프를 단축했습니다.</li>
+          <li>모델 개발자와 기획자의 실제 작업 흐름을 기준으로 IA와 핵심 플로우를 설계하고, 평가 지표 확인, 결과 비교, 반복 실행 시나리오를 고려한 MVP를 단독으로 설계 및 구현했습니다.</li>
+          <li>사업 검토와 피드백 수집이 가능한 수준까지 제품 완성도를 끌어올렸고, 해당 MVP는 이후 정식 LLMOps 제품인 eXemble로 확장되는 기반이 되었습니다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Writing -->
+<div class="section">
+  <div class="section-title">Writing</div>
+  <p class="writing-intro">배운 것은 글과 발표로 남깁니다. 개인 블로그,  기술 블로그 기고, 사내 발표까지 이어지고 있습니다.</p>
+  <div class="writing-list">
+    <div class="writing-item">
+      <a href="https://ex-em.com/ko/blog/ai-test-code-automation-experience-lessons-learned" target="_blank" rel="noopener noreferrer">AI Agent로 테스트 자동화 정착시킨 방법 ↗</a>
+      <div class="writing-desc">QA 없는 환경에서 Claude Code로 테스트 에이전트를 구축해 수동 검증 시간을 줄인 경험</div>
+    </div>
+    <div class="writing-item">
+      <a href="https://hyorish03.tistory.com/45" target="_blank" rel="noopener noreferrer">Webpack으로 Vite 속도 따라잡기 ↗</a>
+      <div class="writing-desc">Webpack loader를 esbuild로 교체해 빌드 시간을 16초 → 3초로 단축, Vite와 동등한 성능을 달성한 과정</div>
+    </div>
+    <div class="writing-item">
+      <a href="https://www.linkedin.com/posts/%ED%9A%A8%EB%A6%B0-%EC%9D%B4-9110b22a1_ai-%EC%8B%9C%EB%8C%80%EC%97%90%EC%84%9C-%EC%82%B4%EC%95%84%EB%82%A8%EA%B8%B0-%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90-%ED%8E%B8-%EC%A7%80%EB%82%9C%EB%8B%AC-%EC%82%AC%EC%98%A5%ED%88%AC%EC%96%B4%EB%A5%BC-share-7341412138516697088-rBjl" target="_blank" rel="noopener noreferrer">AI 시대에서 살아남기 - 프론트엔드 개발자 편 ↗</a>
+      <div class="writing-desc">평촌경영고등학교 AI융합과 학생 대상 발표 — AI를 두려워하기보다 도구로써 제대로 활용하는 방법</div>
+    </div>
+    <div class="writing-item">
+      <a href="https://hyorish03.tistory.com/55" target="_blank" rel="noopener noreferrer">Obsidian + Claude Code로 나만의 RAG 챗봇 만들기 ↗</a>
+      <div class="writing-desc">로컬 노트에 Claude Code를 연결해 개인 RAG 환경을 만든 방법</div>
+    </div>
+  </div>
+</div>
+
+<!-- 수상 -->
+<div class="section">
+  <div class="section-title">Awards</div>
+  <div class="award-row">
+    <div class="award-left">
+      <div class="award-name">Exem 2025 사내 우수 도전·기여 포상</div>
+      <div class="award-desc">기술 블로그, 사내 발표, 개발 과제를 주도하며 기술 공유 문화 확산과 AI 플랫폼 기술 경쟁력 강화에 기여한 점을 인정받아 수상</div>
+    </div>
+    <span class="award-year">2025.12</span>
+  </div>
+  <div class="award-row">
+    <div class="award-left">
+      <div class="award-name">Exem 2025 Best-3X</div>
+      <div class="award-desc">입사 3개월 만에 빠른 실행력, 고객 중심 설계 사고, 지식 확산 기여를 인정받아 수상</div>
+    </div>
+    <span class="award-year">2025.07</span>
+  </div>
+  <div class="award-row">
+    <div class="award-left">
+      <div class="award-name">LG U+ SW 부트캠프 유레카 최종융합 경진대회 우수상</div>
+      <div class="award-desc">반려견 동반 가능 시설 공유 플랫폼 <em>놀멍</em> 개발 프로젝트로 수상</div>
+    </div>
+    <span class="award-year">2024.12</span>
+  </div>
+  <div class="award-row">
+    <div class="award-left">
+      <div class="award-name">2022 클라우드 아이디어 공모전 장려상</div>
+      <div class="award-desc">교통약자를 위한 저상버스 예약 서비스 설계로 수상</div>
+    </div>
+    <span class="award-year">2022.12</span>
+  </div>
+</div>
+
+<!-- 학력 -->
+<div class="section">
+  <div class="section-title">Education</div>
+  <div class="edu-row">
+    <div><span class="edu-school">서울과학기술대학교</span> &nbsp;<span class="edu-dept">컴퓨터공학과 (편입, 졸업)</span></div>
+    <span class="edu-year">2024.02</span>
+  </div>
+  <div class="edu-row">
+    <div><span class="edu-school">LG U+ SW 부트캠프 유레카</span> &nbsp;<span class="edu-dept">프론트엔드 과정</span></div>
+    <span class="edu-year">2024.06 – 2024.12</span>
+  </div>
+</div>
+
+</body>
+</html>
