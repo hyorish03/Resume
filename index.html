@@ -109,7 +109,9 @@
     margin-bottom: 5px;
   }
   .proj-title { font-size: 9.5pt; font-weight: 700; text-wrap: balance; }
-  .proj-link { font-size: 7.5pt; font-weight: 400; color: var(--accent); text-decoration: none; margin-left: 6px; white-space: nowrap; }
+  .proj-title-text { margin-right: 4px; }
+  .proj-links { display: inline-flex; flex-wrap: wrap; gap: 6px; margin-left: 6px; }
+  .proj-link { font-size: 7.5pt; font-weight: 400; color: var(--accent); text-decoration: none; white-space: nowrap; }
   .proj-link:hover { text-decoration: underline; }
   .proj-period { font-size: 8.3pt; color: #888; }
   .proj-stack { font-size: 8pt; color: #777; font-style: italic; margin-bottom: 6px; }
@@ -255,7 +257,7 @@
 
       <div class="proj-item">
         <div class="proj-header">
-          <span class="proj-title">QA 공백 환경에서 E2E 테스트 체계 구축<a class="proj-link" href="https://ex-em.com/ko/blog/ai-test-code-automation-experience-lessons-learned" target="_blank" rel="noopener noreferrer">블로그 ↗</a></span>
+          <span class="proj-title"><span class="proj-title-text">QA 공백 환경에서 E2E 테스트 체계 구축</span><span class="proj-links"><a class="proj-link" href="https://ex-em.com/ko/blog/ai-test-code-automation-experience-lessons-learned" target="_blank" rel="noopener noreferrer">체계 구축 ↗</a><a class="proj-link" href="https://hyorish03.tistory.com/58" target="_blank" rel="noopener noreferrer">E2E 상세 ↗</a></span></span>
         </div>
 
         <ul class="bullets">
@@ -311,6 +313,10 @@
     <div class="writing-item">
       <a href="https://ex-em.com/ko/blog/ai-test-code-automation-experience-lessons-learned" target="_blank" rel="noopener noreferrer">AI Agent로 테스트 자동화 정착시킨 방법 ↗</a>
       <div class="writing-desc">QA 없는 환경에서 Claude Code로 테스트 에이전트를 구축해 수동 검증 시간을 줄인 경험</div>
+    </div>
+    <div class="writing-item">
+      <a href="https://hyorish03.tistory.com/58" target="_blank" rel="noopener noreferrer">QA 없는 팀에서 AI 에이전트로 E2E 테스트코드 찍어내기 ↗</a>
+      <div class="writing-desc">Playwright 기반 E2E 테스트 작성 방식과 AI 에이전트를 활용한 테스트 코드 생성 흐름을 정리한 글</div>
     </div>
     <div class="writing-item">
       <a href="https://hyorish03.tistory.com/45" target="_blank" rel="noopener noreferrer">Webpack으로 Vite 속도 따라잡기 ↗</a>
