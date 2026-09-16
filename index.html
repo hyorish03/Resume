@@ -390,8 +390,8 @@
     <div class="summary">
       LLM 기반 SQL 성능 진단·튜닝 플랫폼에서 대상 선정, 대시보드, 예약, SQL
       직접입력 기능을 개발한 프론트엔드 개발자입니다. 공통 의존성을 분리해 초기
-      로딩을 개선하고, 타입 기반 상태 모델링으로 복잡한 조회·실행 조건을
-      다뤘습니다. AI Agent 기반 E2E 테스트 자동화로 릴리즈 검증 시간을 줄이고
+      로딩을 개선하고, 타입 기반 설계로 복잡한 입력 조건을 모델링했습니다.
+      AI Agent 기반 E2E 테스트 자동화로 릴리즈 검증 시간을 줄이고
       회귀를 사전에 탐지했습니다.
     </div>
 
@@ -401,29 +401,19 @@
       <div class="skill-row">
         <span class="skill-label">Frontend</span
         ><span class="skill-val"
-          >React, TypeScript, Zustand, TanStack Query, Zod, ECharts,
-          shadcn/ui</span
+          >React, TypeScript, Zustand, TanStack Query, Zod, ECharts</span
         >
       </div>
       <div class="skill-row">
-        <span class="skill-label">API / Data</span
+        <span class="skill-label">Testing</span
         ><span class="skill-val"
-          >REST API 연동, Orval, MSW, URL Search Params, 데이터 소스 추상화,
-          클라이언트 상태 영속화</span
+          >Playwright, RTL, MSW</span
         >
       </div>
       <div class="skill-row">
-        <span class="skill-label">Quality</span
+        <span class="skill-label">Tool</span
         ><span class="skill-val"
-          >Error Boundary, Suspense, Playwright, E2E 테스트 설계, Page Object
-          Model, 회귀 테스트 자동화</span
-        >
-      </div>
-      <div class="skill-row">
-        <span class="skill-label">AI / Tools</span
-        ><span class="skill-val"
-          >Claude Code, Codex, AI Agent 기반 테스트 작성, Git, ESLint,
-          Storybook, Codemod, 기술 문서화</span
+          >Vite, Storybook, Orval, Git</span
         >
       </div>
     </div>
@@ -484,26 +474,25 @@
           <div class="proj-item">
             <div class="proj-header">
               <span class="proj-title"
-                >조회·예약·실행 흐름의 상태 모델링과 안정화</span
+                >조건별 입력 상태 모델링과 회귀 검증</span
               >
             </div>
             <ul class="bullets">
               <li>
-                <span class="star-label">문제:</span>화면 이동 이후 검색 조건과
-                사용자의 선택 컨텍스트가 사라지고, 선택값 조합에 따라 약
-                <b>20개의 조건 케이스</b>가 발생해 예약·실행 흐름의 복잡도가
-                증가했습니다.
+                <span class="star-label">문제:</span>입력 조건에 따라 화면·검증·요청
+                값이 달라지는데 같은 분기 판정이 중복돼, 화면에서 숨긴 값이
+                전송되거나 수정한 날짜가 요청에서 누락되는 오류가 발생했습니다.
               </li>
               <li>
-                <span class="star-label">수행한 일:</span
-                ><b>URL Search Parameter</b>와 Zustand persist로 조회 상태를
-                유지하고, <b>Zod superRefine</b>과 Discriminated Union으로 조건
-                조합을 타입 안정적으로 모델링했습니다.
+                <span class="star-label">수행한 일:</span>흩어진 분기 판정을 공통
+                함수로 통합하고, Zod <b>superRefine</b>으로 조건별 검증을 모았습니다.
+                검증을 통과한 제출값만 <b>판별 유니온</b>으로 좁혀, 요청 매핑에서
+                잘못된 조합을 타입 수준에서 표현할 수 없게 했습니다.
               </li>
               <li>
-                <span class="star-label">성과:</span>각 조건이 실제 조회·실행
-                흐름까지 일관되게 연결되도록 개선하고, 다중 SQL 실행 환경에서
-                탭별 실행 상태와 취소 요청을 안정적으로 관리했습니다.
+                <span class="star-label">성과:</span>잘못된 값 전송과 수정 내용
+                누락을 해결하고, <b>27개 조건 조합</b>을
+                테스트로 고정해 변경 시 회귀를 감지할 수 있게 했습니다.
               </li>
             </ul>
           </div>
