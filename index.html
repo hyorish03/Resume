@@ -388,13 +388,11 @@
 
     <!-- 요약 -->
     <div class="summary">
-      불확실한 요구사항 환경에서 서비스를 빠르게 구체화하고 운영 가능한 구조로
-      확장해온 프론트엔드 개발자입니다. LLM 기반 SQL 성능 진단·튜닝 플랫폼의
-      대상 선정, 대시보드, 예약, SQL 직접입력 전 영역을 구축하며 API 연동과
-      데이터 흐름을 정립했고, 타입 기반 설계와 선언적 에러 핸들링으로 복잡한
-      상태와 장애를 격리했습니다. AI 보조 개발 도구, Orval, MSW를 활용해
-      백엔드와 병렬로 제품을 만들고, AI Agent 기반 E2E 테스트 자동화로 릴리즈
-      검증 속도와 안정성을 개선했습니다.
+      LLM 기반 SQL 성능 진단·튜닝 플랫폼에서 대상 선정, 대시보드, 예약, SQL
+      직접입력 기능을 개발한 프론트엔드 개발자입니다. 공통 의존성을 분리해 초기
+      로딩을 개선하고, 타입 기반 상태 모델링으로 복잡한 조회·실행 조건을
+      다뤘습니다. AI Agent 기반 E2E 테스트 자동화로 릴리즈 검증 시간을 줄이고
+      회귀를 사전에 탐지했습니다.
     </div>
 
     <!-- 기술 -->
@@ -460,65 +458,25 @@
 
           <div class="proj-item">
             <div class="proj-header">
-              <span class="proj-title"
-                >SQL 성능 최적화 플랫폼 프론트엔드 전 영역 구축</span
-              >
+              <span class="proj-title">Monaco 공통 엔트리 초기 로딩 개선</span>
             </div>
             <ul class="bullets">
               <li>
-                <span class="star-label">문제:</span>신규 플랫폼의 핵심 화면을
-                빠르게 구축해야 했지만, AI 보조 개발로 생성되는 코드가 디자인
-                시스템, 폼 구조, UI 상태 검증 방식에서 팀의 개발 규칙을 벗어나지
-                않도록 제어해야 했습니다.
-              </li>
-              <li><span class="star-label">수행한 일:</span></li>
-            </ul>
-            <ul class="sub-bullets">
-              <li>
-                Figma MCP와 AI를 활용해 디자인 기반 UI 컴포넌트를 생성하고,
-                디자인 시스템 컴포넌트와 스타일 규칙을 구현 기준으로
-                정리했습니다.
+                <span class="star-label">문제:</span>고객사 온프레미스 환경에
+                맞춰 Monaco를 로컬 번들에 포함한 뒤, 전역 import로 에디터가
+                필요 없는 화면에서도 대형 코드가 공통 엔트리에 포함돼 초기 진입
+                비용이 증가했습니다.
               </li>
               <li>
-                폼 상태 관리, 검증, 제출 흐름을 표준화해 신규 폼 화면이 동일한
-                구조와 패턴으로 작성되도록 했습니다.
+                <span class="star-label">수행한 일:</span>Vite 빌드 결과와
+                소스맵 시각화로 의존 경로를 추적해 Monaco 설정을 에디터 사용
+                경로로 옮기고, 다른 불필요한 공통 의존성도 분리했습니다.
               </li>
               <li>
-                API 응답에 따라 달라지는 비동기·권한·조건별 UI를 Storybook으로
-                격리해 독립 검증할 수 있도록 구성했습니다.
-              </li>
-            </ul>
-            <ul class="bullets">
-              <li>
-                <span class="star-label">성과:</span>핵심 화면 대부분을 빠르게
-                구축하면서도 디자인 시스템, 폼 구조, UI 상태 검증 방식이
-                일관되게 유지되는 개발 가드레일을 마련했습니다.
-              </li>
-            </ul>
-          </div>
-
-          <div class="proj-item">
-            <div class="proj-header">
-              <span class="proj-title"
-                >AI Native 스펙·E2E 테스트 하네스와 장애 격리</span
-              >
-            </div>
-            <ul class="bullets">
-              <li>
-                <span class="star-label">문제:</span>기능 변경 이후 페이지 스펙
-                문서와 E2E 테스트가 실제 동작을 따라가지 못할 위험이 있었고,
-                일부 API 장애가 전체 화면 장애로 확산될 수 있었습니다.
-              </li>
-              <li>
-                <span class="star-label">수행한 일:</span>페이지 단위 스펙
-                문서를 source of truth로 삼아 PR 변경사항을 반영해 스펙을 자동
-                갱신하고, 변경된 스펙을 기반으로 Playwright E2E 테스트 코드까지
-                자동 수정되는 하네스를 구축했습니다.
-              </li>
-              <li>
-                <span class="star-label">성과:</span>문서·테스트·구현 간
-                불일치를 줄이고, 주요 화면에 <b>SectionBoundary</b>와 Suspense
-                기반 로딩 구조를 적용해 장애 확산을 격리했습니다.
+                <span class="star-label">성과:</span>공통 엔트리 크기를
+                <b>8.3MB → 1.96MB(76% 감소)</b>로 줄이고, Lighthouse 측정
+                <b>FCP를 7.6초 → 4.2초(45% 단축)</b>했습니다. 두 수치는 gzip
+                적용 전 측정 결과입니다.
               </li>
             </ul>
           </div>
