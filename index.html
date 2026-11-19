@@ -471,7 +471,7 @@
                 <span class="star-label">판단:</span>라이브러리 하나가 아니라 <b>화면 전용 의존성이 공통 경로로 새는 구조</b>가 원인이라고 보고 eager 경로와 프로덕션에 섞인 mock을 분리했고, 입력 지연은 키마다 돌던 SQL 포매터를 <b>화면에 보일 때만 실행</b>하도록 바꿨습니다.
               </li>
               <li>
-                <span class="star-label">결과:</span>공통 엔트리 <b>gzip 2,442KiB → 363KiB(85% 감소)</b>, FCP <b>7.6초 → 4.2초</b>, 키 입력 지연 <b>565ms → 24ms</b>.
+                <span class="star-label">결과:</span>공통 엔트리 <b>gzip 2,442KiB → 363KiB(85% 감소)</b>, FCP <b>7.6초 → 1.3초</b>, 키 입력 지연 <b>565ms → 24ms</b>.
               </li>
             </ul>
           </div>
@@ -556,19 +556,19 @@
           <div class="proj-item">
             <div class="proj-header">
               <span class="proj-title"
-                >경로 직접 입력 제거와 10만 건 트리 탐색 대응</span
+                >트리 상태 소유권 재설계로 6개 화면의 트리 통합</span
               >
             </div>
 
             <ul class="bullets">
               <li>
-                <span class="star-label">문제:</span>지식베이스 문서 업로드 위치를 직접 입력해야 해 2주간 경로 문의가 <b>15건</b> 들어왔고, 트리는 최대 <b>10만 건</b>까지 커질 수 있었습니다.
+                <span class="star-label">문제:</span>공용 트리는 기능이 늘수록 수정 영향 범위를 예측하기 어려워 화면마다 별도 트리를 만들게 됐고, 데이터 갱신 시 같은 노드가 새 객체로 생성돼 기존 선택이 풀렸습니다.
               </li>
               <li>
-                <span class="star-label">판단:</span>입력을 정확히 하도록 돕기보다 <b>입력 자체를 없애야</b> 한다고 보고 트리를 탐색해 고르는 방식으로 바꿨고, 탐색이 주 동작이 되는 만큼 pagination과 virtualization을 함께 적용했습니다.
+                <span class="star-label">판단:</span>조회·자식 노드 로딩·드래그 앤 드롭 세 훅이 <b>같은 트리 상태를 각자 수정</b>하는 것이 원인이라고 보고 개별 오류 대신 소유권을 재설계했습니다. 트리가 조회까지 맡으면 화면별 API에 종속되므로 <b>조회는 화면이, 트리는 데이터와 UI 상태만</b> 맡게 나누고, 상태 변경은 노드 ID 기반 공통 함수로, 선택은 객체 대신 ID로 관리했습니다.
               </li>
               <li>
-                <span class="star-label">결과:</span>DOM에는 <b>20개 내외의 요소</b>만 유지되고, 개편 이후 경로 입력 문의가 추가로 들어오지 않았습니다.
+                <span class="star-label">결과:</span>설계 제안부터 기존 화면 교체까지 주도해 <b>6개 화면의 트리를 하나로 통합</b>했고, 조회 기준이 경로에서 고유 ID로 바뀌었을 때 공용 트리 수정 없이 각 화면의 조회 로직만 바꿔 대응했습니다.
               </li>
             </ul>
           </div>
