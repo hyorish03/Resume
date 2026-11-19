@@ -64,13 +64,6 @@
         border-bottom: 2px solid #222;
         margin-bottom: 56px;
       }
-      .cover-label {
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        color: var(--accent);
-        margin-bottom: 8px;
-      }
       .cover-name {
         font-size: 34px;
         font-weight: 700;
@@ -245,7 +238,26 @@
       }
       .story-title {
         font-weight: 700;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
+      }
+      .story dl {
+        display: grid;
+        grid-template-columns: 48px 1fr;
+        gap: 4px 12px;
+        font-size: 14.5px;
+      }
+      .story dt {
+        font-weight: 700;
+        color: var(--text-muted);
+      }
+      .story dd {
+        color: #333;
+      }
+      .story .table-wrap {
+        overflow-x: auto;
+      }
+      .story table.result {
+        min-width: 560px;
       }
 
       /* 다이어그램 */
@@ -437,7 +449,8 @@
           margin: 0 -16px 32px;
           padding: 0 16px;
         }
-        .decision dl {
+        .decision dl,
+        .story dl {
           grid-template-columns: 1fr;
         }
         .decision dt {
@@ -476,7 +489,6 @@
     <main class="page">
       <!-- 표지 -->
       <header class="cover">
-        <div class="cover-label">FRONTEND DEVELOPER PORTFOLIO</div>
         <h1 class="cover-name">이효린</h1>
         <p class="cover-intro">
           문제를 고치기 전에 원인을 측정하고, 고친 결과를 같은 기준으로 다시 재는
@@ -518,10 +530,11 @@
 
       <nav class="tabs" aria-label="프로젝트">
         <ol>
-          <li><a href="#e2e"><span class="tab-num">01</span>AI Agent E2E 테스트 체계</a></li>
-          <li><a href="#perf"><span class="tab-num">02</span>초기 로딩·입력 지연 개선</a></li>
-          <li><a href="#isolation"><span class="tab-num">03</span>CI 테스트 시간 39% 단축</a></li>
+          <li><a href="#e2e"><span class="tab-num">01</span>AI Agent E2E 테스트</a></li>
+          <li><a href="#perf"><span class="tab-num">02</span>번들 구조 개선</a></li>
+          <li><a href="#isolation"><span class="tab-num">03</span>CI 테스트 39% 단축</a></li>
           <li><a href="#tree"><span class="tab-num">04</span>공용 트리 통합</a></li>
+          <li><a href="#satellite"><span class="tab-num">05</span>느린 회선 대응</a></li>
         </ol>
       </nav>
 
@@ -601,65 +614,77 @@
           <h3 class="block-title"><span class="block-num">02</span>구조: AI가 테스트를 쓰고, 고치고, 멈추는 지점</h3>
           <div class="diagram">
             <svg
-              viewBox="0 0 760 400"
+              viewBox="0 0 800 400"
               role="img"
-              aria-label="자연어 시나리오를 받은 에이전트가 규칙과 Helper 목록을 읽고 테스트를 생성해 실행한다. 실패하면 원인을 네 가지로 분류해, UI 변경과 테스트 버그는 최대 세 번까지 스스로 고치고, 앱 버그와 환경 문제는 코드를 고치지 않고 보고한다. 통과한 테스트는 CI와 야간 실행에서 돌고, 실패는 담당자에게 태스크로 배정된다."
+              aria-label="자연어 시나리오와 Helper·Selector 규칙을 받은 AI Agent가 테스트를 생성한다. 생성된 테스트는 self-healing 루프에 들어가 직접 실행되고, 실패하면 원인을 분류한다. UI 변경이나 테스트 버그면 규칙대로 수정해 다시 실행하며 최대 3회 반복한다. 통과하면 CI와 야간 실행으로 넘어가고, 앱 버그나 환경 문제면 코드로 우회하지 않고 보고만 한다."
               font-family="Spoqa Han Sans Neo, Apple SD Gothic Neo, sans-serif"
             >
               <defs>
-                <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                  <path d="M0,0 L10,5 L0,10 z" fill="#999" />
+                <marker id="e2e-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" fill="#9aa3ad" />
+                </marker>
+                <marker id="e2e-ar-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" fill="#2b8a3e" />
                 </marker>
               </defs>
 
-              <!-- row 1 -->
-              <rect x="20" y="20" width="150" height="64" rx="8" fill="#fff" stroke="#c9d6e8" />
-              <text x="95" y="47" font-size="13" font-weight="700" fill="#222" text-anchor="middle">자연어 시나리오</text>
-              <text x="95" y="67" font-size="12" fill="#666" text-anchor="middle">"에이전트를 생성하면…"</text>
+              <!-- 입력 -->
+              <rect x="20" y="20" width="200" height="60" rx="10" fill="#fff" stroke="#d5dde8" />
+              <text x="120" y="45" font-size="14" font-weight="700" fill="#222" text-anchor="middle">자연어 시나리오</text>
+              <text x="120" y="66" font-size="12.5" fill="#666" text-anchor="middle">"에이전트를 생성하면…"</text>
 
-              <rect x="210" y="20" width="250" height="64" rx="8" fill="#e8f1fe" stroke="#3182f6" />
-              <text x="335" y="44" font-size="13" font-weight="700" fill="#1b64da" text-anchor="middle">AI Agent: 컨텍스트 수집 → 생성</text>
-              <text x="335" y="66" font-size="12" fill="#333" text-anchor="middle">규칙 문서 · Helper 목록 · 기존 테스트</text>
+              <rect x="280" y="20" width="240" height="60" rx="10" fill="#e8f1fe" stroke="#3182f6" stroke-width="1.5" />
+              <text x="400" y="45" font-size="14" font-weight="700" fill="#1b64da" text-anchor="middle">AI Agent · 테스트 생성</text>
+              <text x="400" y="66" font-size="12.5" fill="#333" text-anchor="middle">규칙 · Helper · 기존 테스트 참고</text>
 
-              <rect x="500" y="20" width="240" height="64" rx="8" fill="#fff" stroke="#c9d6e8" />
-              <text x="620" y="44" font-size="13" font-weight="700" fill="#222" text-anchor="middle">Helper 6종 + Selector 규칙</text>
-              <text x="620" y="66" font-size="12" fill="#666" text-anchor="middle">디자인 시스템 컴포넌트와 1:1</text>
+              <rect x="580" y="20" width="200" height="60" rx="10" fill="#fff" stroke="#d5dde8" />
+              <text x="680" y="45" font-size="14" font-weight="700" fill="#222" text-anchor="middle">Helper 6종 + Selector 규칙</text>
+              <text x="680" y="66" font-size="12.5" fill="#666" text-anchor="middle">디자인 시스템과 1:1</text>
 
-              <line x1="170" y1="52" x2="206" y2="52" stroke="#999" stroke-width="1.5" marker-end="url(#ar)" />
-              <line x1="496" y1="52" x2="462" y2="52" stroke="#999" stroke-width="1.5" marker-end="url(#ar)" />
+              <line x1="220" y1="50" x2="276" y2="50" stroke="#9aa3ad" stroke-width="1.5" marker-end="url(#e2e-ar)" />
+              <line x1="580" y1="50" x2="524" y2="50" stroke="#9aa3ad" stroke-width="1.5" marker-end="url(#e2e-ar)" />
 
-              <!-- run -->
-              <rect x="260" y="120" width="150" height="44" rx="8" fill="#fff" stroke="#c9d6e8" />
-              <text x="335" y="147" font-size="13" font-weight="700" fill="#222" text-anchor="middle">직접 실행</text>
-              <line x1="335" y1="84" x2="335" y2="116" stroke="#999" stroke-width="1.5" marker-end="url(#ar)" />
+              <!-- self-healing 루프 영역 -->
+              <rect x="20" y="112" width="560" height="268" rx="14" fill="#f2faf3" stroke="#2b8a3e" stroke-width="1.2" stroke-dasharray="6 4" />
+              <text x="40" y="140" font-size="14" font-weight="700" fill="#2b8a3e">Self-healing 루프</text>
+              <text x="40" y="160" font-size="12" fill="#2b8a3e">최대 3회 반복, 넘으면 원인과 함께 보고</text>
 
-              <!-- classify -->
-              <rect x="235" y="200" width="200" height="44" rx="8" fill="#fff" stroke="#c9d6e8" />
-              <text x="335" y="227" font-size="13" font-weight="700" fill="#222" text-anchor="middle">실패 원인 4가지로 분류</text>
-              <line x1="335" y1="164" x2="335" y2="196" stroke="#999" stroke-width="1.5" marker-end="url(#ar)" />
-              <text x="345" y="186" font-size="11.5" fill="#888">실패 시</text>
+              <line x1="400" y1="80" x2="400" y2="166" stroke="#9aa3ad" stroke-width="1.5" marker-end="url(#e2e-ar)" />
 
-              <!-- fix branch -->
-              <rect x="20" y="284" width="250" height="64" rx="8" fill="#ebfbee" stroke="#2b8a3e" />
-              <text x="145" y="309" font-size="13" font-weight="700" fill="#2b8a3e" text-anchor="middle">UI_CHANGE · TEST_BUG</text>
-              <text x="145" y="331" font-size="12" fill="#333" text-anchor="middle">규칙대로 수정 후 재실행 (최대 3회)</text>
-              <line x1="290" y1="244" x2="190" y2="280" stroke="#999" stroke-width="1.5" marker-end="url(#ar)" />
-              <path d="M 20 316 Q 0 316 0 200 Q 0 142 256 142" fill="none" stroke="#2b8a3e" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ar)" />
+              <!-- 실행 -->
+              <rect x="320" y="170" width="160" height="48" rx="10" fill="#fff" stroke="#2b8a3e" stroke-width="1.5" />
+              <text x="400" y="199" font-size="14" font-weight="700" fill="#222" text-anchor="middle">직접 실행</text>
 
-              <!-- report branch -->
-              <rect x="400" y="284" width="250" height="64" rx="8" fill="#fff4ee" stroke="#d9480f" />
-              <text x="525" y="309" font-size="13" font-weight="700" fill="#d9480f" text-anchor="middle">APP_BUG · ENV_ISSUE</text>
-              <text x="525" y="331" font-size="12" fill="#333" text-anchor="middle">코드로 우회하지 않고 보고만</text>
-              <line x1="380" y1="244" x2="480" y2="280" stroke="#999" stroke-width="1.5" marker-end="url(#ar)" />
+              <!-- 원인 분류 -->
+              <rect x="300" y="300" width="200" height="56" rx="10" fill="#fff" stroke="#2b8a3e" stroke-width="1.5" />
+              <text x="400" y="324" font-size="14" font-weight="700" fill="#222" text-anchor="middle">실패 원인 분류</text>
+              <text x="400" y="344" font-size="12" fill="#666" text-anchor="middle">에러 로그 · trace 스크린샷</text>
 
-              <!-- pass → CI -->
-              <rect x="500" y="120" width="240" height="64" rx="8" fill="#fff" stroke="#c9d6e8" />
-              <text x="620" y="145" font-size="13" font-weight="700" fill="#222" text-anchor="middle">CI · 야간 실행</text>
-              <text x="620" y="167" font-size="12" fill="#666" text-anchor="middle">실패하면 담당자에게 태스크 배정</text>
-              <line x1="410" y1="142" x2="496" y2="142" stroke="#999" stroke-width="1.5" marker-end="url(#ar)" />
-              <text x="430" y="134" font-size="11.5" fill="#888">통과</text>
+              <!-- 수정 -->
+              <rect x="60" y="226" width="180" height="56" rx="10" fill="#e6f6e9" stroke="#2b8a3e" stroke-width="1.5" />
+              <text x="150" y="250" font-size="14" font-weight="700" fill="#2b8a3e" text-anchor="middle">규칙대로 수정</text>
+              <text x="150" y="270" font-size="12" fill="#333" text-anchor="middle">UI 변경 · 테스트 버그</text>
 
-              <text x="20" y="384" font-size="12" fill="#888">점선: 에이전트가 스스로 고치는 self-healing 루프</text>
+              <!-- 루프 화살표 -->
+              <line x1="400" y1="218" x2="400" y2="296" stroke="#2b8a3e" stroke-width="2" marker-end="url(#e2e-ar-g)" />
+              <text x="410" y="262" font-size="12" font-weight="700" fill="#2b8a3e">실패</text>
+              <path d="M300 328 H150 V286" fill="none" stroke="#2b8a3e" stroke-width="2" marker-end="url(#e2e-ar-g)" />
+              <path d="M150 226 V194 H316" fill="none" stroke="#2b8a3e" stroke-width="2" marker-end="url(#e2e-ar-g)" />
+              <text x="232" y="186" font-size="12" font-weight="700" fill="#2b8a3e" text-anchor="middle">다시 실행</text>
+
+              <!-- 출구: 통과 -->
+              <line x1="480" y1="194" x2="616" y2="194" stroke="#9aa3ad" stroke-width="1.5" marker-end="url(#e2e-ar)" />
+              <text x="548" y="186" font-size="12" fill="#666" text-anchor="middle">통과</text>
+              <rect x="620" y="166" width="160" height="56" rx="10" fill="#fff" stroke="#d5dde8" />
+              <text x="700" y="190" font-size="14" font-weight="700" fill="#222" text-anchor="middle">CI · 야간 실행</text>
+              <text x="700" y="210" font-size="12" fill="#666" text-anchor="middle">실패 시 담당자 배정</text>
+
+              <!-- 출구: 보고 -->
+              <line x1="500" y1="328" x2="616" y2="328" stroke="#9aa3ad" stroke-width="1.5" marker-end="url(#e2e-ar)" />
+              <text x="558" y="320" font-size="12" fill="#666" text-anchor="middle">앱 버그 · 환경</text>
+              <rect x="620" y="300" width="160" height="56" rx="10" fill="#fff4ee" stroke="#d9480f" stroke-width="1.5" />
+              <text x="700" y="324" font-size="14" font-weight="700" fill="#d9480f" text-anchor="middle">보고만 하고 멈춤</text>
+              <text x="700" y="344" font-size="12" fill="#333" text-anchor="middle">코드로 우회하지 않음</text>
             </svg>
           </div>
         </section>
@@ -762,7 +787,7 @@
           </div>
         </section>
 
-        <nav class="next-project"><span></span><a href="#perf">다음: 초기 로딩·입력 지연 개선 →</a></nav>
+        <nav class="next-project"><span></span><a href="#perf">다음: 번들 구조 개선 →</a></nav>
       </article>
 
       <!-- 프로젝트: 성능 개선 -->
@@ -939,67 +964,50 @@
           <h3 class="block-title"><span class="block-num">04</span>마주친 문제와 해결</h3>
 
           <div class="story">
-            <div class="story-title">
-              공통 엔트리는 크게 줄었는데, Lighthouse 점수는 1점만 올랐다
+            <div class="story-title">Lighthouse 점수가 오르지 않은 원인 확인</div>
+            <dl>
+              <dt>문제</dt>
+              <dd>1차 측정에서 공통 엔트리는 8.3MB → 1.9MB, FCP는 7.6초 → 4.2초로 줄었지만 Performance 점수는 55 → 56으로 1점 오르는 데 그쳤습니다.</dd>
+              <dt>원인</dt>
+              <dd>측정 서버에 gzip이 적용되지 않아 JS가 원본 크기로 전송되고 있었고, 프로덕션 번들에 mock 코드가 포함되어 있었습니다.</dd>
+              <dt>해결</dt>
+              <dd>서버 gzip을 적용하고 mock을 별도 청크로 분리했습니다. gzip 적용 여부는 Lighthouse 결과의 전송 크기 대비 원본 크기 비율(JS 0.30, CSS 0.16)로 확인했습니다.</dd>
+              <dt>결과</dt>
+              <dd>배포 서버에서 다시 측정한 결과 Performance <b>55 → 73</b>, FCP <b>7.6초 → 1.3초</b>.</dd>
+            </dl>
+          </div>
+
+          <div class="story">
+            <div class="story-title">측정 방식 수정</div>
+            <p style="margin-bottom: 10px">
+              1차 측정에서 기록한 추정 중 세 가지가 실측과 달라 측정 방식을 수정했습니다.
+            </p>
+            <div class="table-wrap">
+              <table class="result">
+                <thead>
+                  <tr><th>항목</th><th>처음 판단</th><th>실측</th><th>바꾼 측정 방식</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>faker 크기</td><td>별도 청크로 분리해 측정, gzip 890KB</td><td>제거 후 줄어든 양 224KiB (큰 파일 안에서 압축률이 더 높음)</td><td>기여도는 제거 전후 비교로 측정</td></tr>
+                  <tr><td>4MB 청크 구성</td><td>청크 이름을 보고 faker가 원인이라고 판단</td><td>Monaco 문자열 560건 포함</td><td>청크 구성은 이름이 아닌 내용으로 확인</td></tr>
+                  <tr><td>기준선</td><td>몇 커밋 전에 기록한 601KiB</td><td>직전 커밋을 다시 빌드하니 587KiB</td><td>직전 커밋을 같은 환경에서 다시 빌드해 비교</td></tr>
+                </tbody>
+              </table>
             </div>
-            <p>
-              Monaco·ECharts·ExcelJS를 분리한 1차 측정에서 공통 엔트리(raw)는
-              8.3MB → 1.9MB로 줄었고 FCP도 7.6초 → 4.2초로 빨라졌지만,
-              Lighthouse Performance 점수는 <b>55 → 56</b>이었습니다.
-            </p>
-            <p>
-              점수를 근거로 "효과가 없다"고 결론 내리기 전에 전송 자산을 다시
-              뜯어봤습니다. 측정 서버에는 아직 <b>gzip이 반영되지 않아</b> 모든
-              JS가 원본 크기로 전송되고 있었고, 프로덕션 번들에는 mock 코드가
-              남아 있었습니다. 점수가 안 오른 건 분리가 효과가 없어서가 아니라,
-              다음 병목이 바로 뒤에 서 있었기 때문이었습니다.
-            </p>
-            <p>
-              서버 gzip 적용과 mock 분리를 마친 뒤 배포 서버에서 다시 측정한
-              결과, Performance는 <b>55 → 73</b>, FCP는 <b>7.6초 → 1.3초</b>가
-              됐습니다. gzip이 실제로 걸렸는지는 Lighthouse 결과의 전송 크기 /
-              원본 크기 비율로 확인했습니다(JS 0.30, CSS 0.16).
-            </p>
           </div>
 
           <div class="story">
-            <div class="story-title">측정하면서 틀렸던 세 가지</div>
-            <p>
-              이 작업에서 가장 많이 배운 건 잘못 잰 경험이었습니다. 1차 기록에
-              적어 둔 추정 세 개가 실측에서 뒤집혔습니다.
-            </p>
-            <ul class="dots" style="margin-top: 10px">
-              <li>
-                <b>격리해서 재면 부풀려진다.</b> faker의 크기를 보려고 별도
-                청크로 떼어 재니 gzip 890KB였지만, 실제로 제거하고 줄어든 건
-                <b>224KiB</b>였습니다. gzip은 큰 파일 안에 섞여 있을 때 더 잘
-                압축되기 때문입니다. 그 뒤로 강제 분리는 "어디 있나"를 볼 때만
-                쓰고, "얼마나 기여하나"는 제거 전후 비교로만 판단합니다.
-              </li>
-              <li>
-                <b>청크 이름은 정체를 말해주지 않는다.</b> 4MB 크기의
-                <code>TuningFilter</code> 청크를 faker 탓으로 짚었는데, 라이브러리
-                고유 문자열로 검색해 보니 <b>Monaco 문자열이 560건</b>
-                들어 있었습니다. 번들러가 청크 안의 아무 모듈 이름이나 붙인
-                것이었습니다.
-              </li>
-              <li>
-                <b>기준선은 직전 커밋을 같은 머신에서 다시 빌드한다.</b> 몇 커밋
-                전에 기록한 601KiB를 기준으로 썼다가, 직전 커밋을 다시 빌드하니
-                587KiB였습니다. 그 사이 다른 PR의 변동이 섞여 있었습니다.
-              </li>
-            </ul>
-          </div>
-
-          <div class="story">
-            <div class="story-title">긴 SQL에서 키 입력이 0.5초씩 밀렸다</div>
-            <p>
-              입력 지연을 측정해 보니 원인은 키를 누를 때마다 실행되던 <b>SQL
-              포매터</b>였습니다. 포매팅된 SQL은 별도 보기에서만
-              필요했기 때문에, 그 화면이 보일 때만 포매터가 실행되도록
-              바꿨습니다. 함께 커진 페이지 컴포넌트를 책임별로 나눠 입력과
-              무관한 영역의 리렌더링도 줄였습니다.
-            </p>
+            <div class="story-title">SQL 입력 지연 원인 확인</div>
+            <dl>
+              <dt>문제</dt>
+              <dd>5만 자 SQL을 편집할 때 키 입력마다 0.5초 이상 지연됐습니다.</dd>
+              <dt>원인</dt>
+              <dd>키를 입력할 때마다 SQL 포매터가 실행되고 있었습니다.</dd>
+              <dt>해결</dt>
+              <dd>포매팅된 SQL이 필요한 보기가 표시될 때만 포매터가 실행되도록 변경하고, 페이지 컴포넌트를 책임별로 분리해 입력과 무관한 영역의 리렌더링을 줄였습니다.</dd>
+              <dt>결과</dt>
+              <dd>키 입력 지연 <b>565ms → 24ms</b>.</dd>
+            </dl>
           </div>
         </section>
 
@@ -1068,15 +1076,6 @@
                 코드를 지운 게 아니라 처음에 안 받아도 되는 것을 뒤로 미룬
                 것이라, 해당 기능에 진입하는 순간의 비용은 여전히 남아 있습니다.
               </li>
-              <li>
-                Monaco 문자열이 섞여 있던 4MB 청크는 원인을 다시 진단했지만,
-                아직 분리하지 못했습니다.
-              </li>
-              <li>
-                폰트 서브셋은 남은 과제입니다. 폐쇄망 고객사에서는 CDN 동적
-                서브셋을 쓸 수 없고 글리프를 잘라내는 방식은 누락 위험이 있어,
-                <code>unicode-range</code>로 나눠 받는 방향을 정해 두었습니다.
-              </li>
             </ul>
           </div>
         </section>
@@ -1112,8 +1111,8 @@
           <div class="glance-result">
             <div class="glance-label">결과</div>
             <ul>
-              <li>CI 단위 테스트 p50 <b>140초 → 85초</b></li>
-              <li>p90 <b>214초 → 127초</b></li>
+              <li>CI 단위 테스트 시간(중앙값) <b>140초 → 85초</b></li>
+              <li>느린 실행(상위 10%) <b>214초 → 127초</b></li>
               <li>로컬 CPU 사용량 <b>−64%</b></li>
             </ul>
           </div>
@@ -1154,7 +1153,7 @@
               <g font-size="12" fill="#333" text-anchor="middle">
                 <text x="51" y="88">파일</text><text x="121" y="88">파일</text><text x="191" y="88">파일</text><text x="261" y="88">파일</text><text x="331" y="88">…</text>
               </g>
-              <text x="20" y="130" font-size="12.5" fill="#d9480f">CI 단위 테스트 p50 140초</text>
+              <text x="20" y="130" font-size="12.5" fill="#d9480f">CI 단위 테스트 중앙값 140초</text>
 
               <line x1="380" y1="84" x2="408" y2="84" stroke="#999" stroke-width="2" />
               <polygon points="408,78 418,84 408,90" fill="#999" />
@@ -1171,7 +1170,7 @@
               <text x="446" y="182" font-size="12.5" fill="#333">상태가 새는 것으로 확인된 파일 목록(18개)</text>
               <text x="446" y="202" font-size="12.5" fill="#333">+ vi.mock을 쓰는 파일은 자동 분류</text>
 
-              <text x="430" y="238" font-size="12.5" fill="#2b8a3e">CI 단위 테스트 p50 85초</text>
+              <text x="430" y="238" font-size="12.5" fill="#2b8a3e">CI 단위 테스트 중앙값 85초</text>
             </svg>
           </div>
           <p class="diagram-caption">
@@ -1218,24 +1217,28 @@
         <section class="block">
           <h3 class="block-title"><span class="block-num">04</span>마주친 문제와 해결</h3>
           <div class="story">
-            <div class="story-title">첫 버전은 격리가 실제로 꺼지지 않았다</div>
-            <p>
-              격리를 끄는 설정을 넣었는데 <b>CI와 로컬 시간이 그대로</b>였습니다.
-              Vitest 3에서는 이 설정을 프로젝트별로 나눠 걸 수 없어서, 넣은 위치에서는
-              적용되지 않고 있었습니다. 이 버전으로 측정한 비교(중앙값 110초 대 114.5초)는
-              무효로 처리하고 다시 쟀습니다.
-            </p>
+            <div class="story-title">격리 해제 설정이 적용되지 않은 문제</div>
+            <dl>
+              <dt>문제</dt>
+              <dd>격리를 끄는 설정을 넣었지만 CI와 로컬 실행 시간이 그대로였습니다.</dd>
+              <dt>원인</dt>
+              <dd>Vitest 3에서는 이 설정을 프로젝트별로 나눠 걸 수 없어, 넣은 위치에서는 적용되지 않았습니다.</dd>
+              <dt>해결</dt>
+              <dd>격리 없는 실행과 격리 실행을 Vitest 두 번 실행으로 나눴습니다. 설정이 적용되지 않은 버전으로 측정한 비교(중앙값 110초 대 114.5초)는 무효로 처리하고 다시 측정했습니다.</dd>
+            </dl>
           </div>
           <div class="story">
-            <div class="story-title">원인을 셋으로 나눠 따로 고쳤다</div>
-            <p>
-              실패한 파일을 원인별로 나눴습니다. 스토어·타이머·전역 값이 다음
-              파일로 새는 경우는 setup에서 정리하고, 다른 파일의 <code>vi.mock</code>
-              때문에 깨지던 11개와 원인이 불분명했던 21개를 정리해 격리 목록에서
-              뺐습니다. Codex 코드 리뷰에서는 MSW 요청 리스너가 첫 파일 이후 사라지는
-              문제가 나와 함께 고쳤습니다. 같은 목록 파일을 고치는 PR 3개는 순서를
-              정해 하나씩 머지하고 매번 rebase했습니다.
-            </p>
+            <div class="story-title">격리 해제 후 실패한 테스트 정리</div>
+            <dl>
+              <dt>문제</dt>
+              <dd>격리를 끄자 87개 파일이 실패했습니다.</dd>
+              <dt>원인</dt>
+              <dd>스토어·타이머·전역 값이 다음 파일로 새는 경우, 다른 파일의 <code>vi.mock</code> 영향을 받는 경우, 원인이 불분명한 경우로 나뉘었습니다.</dd>
+              <dt>해결</dt>
+              <dd>새는 값은 setup에서 정리하고, <code>vi.mock</code> 영향을 받던 11개와 원인이 불분명했던 21개를 정리해 격리 목록에서 뺐습니다. Codex 코드 리뷰에서 나온 MSW 요청 리스너가 첫 파일 이후 사라지는 문제도 함께 수정했습니다. 같은 목록 파일을 고치는 PR 3개는 순서를 정해 하나씩 머지했습니다.</dd>
+              <dt>결과</dt>
+              <dd>격리 실행 목록 <b>67개 → 18개</b>.</dd>
+            </dl>
           </div>
         </section>
 
@@ -1252,13 +1255,13 @@
             </thead>
             <tbody>
               <tr>
-                <td>CI 단위 테스트 단계 p50</td>
+                <td>CI 단위 테스트 시간 (중앙값)</td>
                 <td class="num">140초</td>
                 <td class="num">85초</td>
                 <td class="num delta">−39%</td>
               </tr>
               <tr>
-                <td>CI 단위 테스트 단계 p90</td>
+                <td>CI 단위 테스트 시간 (느린 실행 상위 10%)</td>
                 <td class="num">214초</td>
                 <td class="num">127초</td>
                 <td class="num delta">−41%</td>
@@ -1312,7 +1315,7 @@
           </div>
         </section>
 
-        <nav class="next-project"><a href="#perf">← 이전: 초기 로딩·입력 지연 개선</a><a href="#tree">다음: 공용 트리 통합 →</a></nav>
+        <nav class="next-project"><a href="#perf">← 이전: 번들 구조 개선</a><a href="#tree">다음: 공용 트리 통합 →</a></nav>
       </article>
 
       <!-- 프로젝트: 공용 트리 -->
@@ -1424,7 +1427,7 @@
                 <dt>상황</dt>
                 <dd>확장이 어려운 문제와 선택이 풀리는 문제는 따로 보였지만, 상태 변경 경로를 추적해 보니 데이터 조회, 자식 노드 로딩, 드래그 앤 드롭을 맡은 세 훅이 같은 트리 상태를 각자 수정하고 있었습니다.</dd>
                 <dt>판단</dt>
-                <dd>오류를 하나씩 고치면 상태를 바꾸는 경로 셋은 그대로 남습니다. 개별 오류 대신 상태의 소유권과 트리의 책임 범위를 다시 정했습니다.</dd>
+                <dd>세 훅이 같은 상태를 각자 고치는 구조에서는 한 곳의 오류를 고쳐도 다른 훅이 같은 상태를 바꾸면서 비슷한 문제가 다시 생길 수 있고, 수정 영향 범위도 계속 예측하기 어렵습니다. 그래서 개별 오류를 고치는 대신, <b>트리 상태를 누가 바꿀 수 있는지</b>와 트리가 맡을 범위를 다시 정했습니다.</dd>
               </dl>
             </div>
             <div class="decision">
@@ -1494,7 +1497,193 @@
           </p>
         </section>
 
-        <nav class="next-project"><a href="#isolation">← 이전: CI 테스트 시간 39% 단축</a><span></span></nav>
+        <nav class="next-project"><a href="#isolation">← 이전: CI 테스트 시간 39% 단축</a><a href="#satellite">다음: 느린 회선 대응 →</a></nav>
+      </article>
+
+      <!-- 프로젝트: 위성망 gzip -->
+      <article class="project" id="satellite">
+        <div class="project-index">PROJECT 05 · eXemble</div>
+        <h2 class="project-title">위성망 고객 환경에서 첫 화면 27초를 10초로</h2>
+        <p class="project-summary">
+          사내망에서는 보이지 않던 느린 회선 문제를 재현해 <b>받는 바이트</b>를
+          원인으로 좁히고, 스트리밍 응답을 깨지 않는 범위에서 전송 압축을 적용한
+          작업입니다.
+        </p>
+
+        <dl class="meta">
+          <div><dt>역할</dt><dd>재현 환경 구성 · 원인 분석 · nginx 설정과 배포 · A/B 측정</dd></div>
+          <div><dt>기술</dt><dd>nginx(OpenResty) · Docker · Playwright CDP · Lighthouse</dd></div>
+        </dl>
+
+        <div class="glance">
+          <div>
+            <div class="glance-label">문제</div>
+            위성 회선을 쓰는 공공기관 고객사 조건을 재현하니 채팅 첫 화면이 약 27초 걸렸습니다. 사내망에서는 모든 화면이 1.4초 안에 떴습니다.
+          </div>
+          <div>
+            <div class="glance-label">한 일</div>
+            첫 API를 앞당기는 방식을 기각하고 받는 양을 원인으로 좁혀, nginx 전송 압축을 적용했습니다. 스트리밍 응답과 이미 압축된 파일은 제외했습니다.
+          </div>
+          <div class="glance-result">
+            <div class="glance-label">결과</div>
+            <ul>
+              <li>채팅 첫 접속 <b>27.1초 → 10.0~10.7초</b></li>
+              <li>로그인 <b>11.4초 → 4.1초</b></li>
+              <li>받는 JS <b>5.8MB → 1.8MB</b></li>
+            </ul>
+          </div>
+        </div>
+
+        <section class="block">
+          <h3 class="block-title"><span class="block-num">01</span>해결하려던 문제</h3>
+          <p>
+            위성 회선으로 통신하는 공공기관에 납품을 앞두고 있었습니다. 사내망에서는
+            모든 화면이 1.4초 안에 떠서 문제가 보이지 않았기 때문에, 먼저 Playwright로
+            Chrome DevTools Protocol의 네트워크 조건을 걸어 <b>왕복 600ms, 다운로드
+            2Mbps</b>의 위성 회선을 재현했습니다.
+          </p>
+          <p>
+            그 조건에서 채팅과 홈 화면의 첫 접속은 <b>약 28초</b>가 걸렸습니다. 다시
+            접속할 때는 캐시 덕분에 1.8~3초였으니, 문제는 처음 받는 양에 있었습니다.
+          </p>
+        </section>
+
+        <section class="block">
+          <h3 class="block-title"><span class="block-num">02</span>구조: 무엇을 받고 있었고, 무엇을 압축하나</h3>
+          <div class="diagram">
+            <svg
+              viewBox="0 0 760 300"
+              role="img"
+              aria-label="첫 접속 때 받는 양은 약 8MB였다. 압축되지 않은 메인 번들 2.24MB, 공용 import 경로를 타고 들어온 캔버스와 그래프 레이아웃 청크 2.35MB, 폰트 2MB가 큰 몫이었다. 전송 압축은 JS, CSS, JSON, SVG에 적용하고, 스트리밍 응답과 이미 압축된 폰트와 이미지는 제외했다. 고객사 설치본은 빌드할 때 압축 파일을 미리 만들어 둔다."
+              font-family="Spoqa Han Sans Neo, Apple SD Gothic Neo, sans-serif"
+            >
+              <!-- LEFT: breakdown -->
+              <text x="20" y="28" font-size="15" font-weight="700" fill="#222">첫 접속에 받는 양</text>
+              <text x="158" y="28" font-size="13" fill="#888">약 8MB</text>
+
+              <rect x="20" y="48" width="340" height="52" rx="6" fill="#fff4ee" stroke="#d9480f" />
+              <text x="34" y="70" font-size="13" font-weight="700" fill="#d9480f">메인 번들 2.24MB · 압축 없이 원본 전송</text>
+              <text x="34" y="90" font-size="12.5" fill="#333">gzip 하면 0.65MB</text>
+
+              <rect x="20" y="110" width="340" height="52" rx="6" fill="#fff" stroke="#e0b8a8" />
+              <text x="34" y="132" font-size="13" font-weight="700" fill="#222">캔버스·그래프 레이아웃 청크 2.35MB</text>
+              <text x="34" y="152" font-size="12.5" fill="#333">채팅·홈이 공용 import 경로를 타고 함께 받음</text>
+
+              <rect x="20" y="172" width="340" height="52" rx="6" fill="#fff" stroke="#e0b8a8" />
+              <text x="34" y="194" font-size="13" font-weight="700" fill="#222">폰트 2MB (woff2)</text>
+              <text x="34" y="214" font-size="12.5" fill="#333">이미 압축된 포맷이라 gzip으로 줄지 않음</text>
+
+              <text x="20" y="254" font-size="12.5" fill="#8a5a44">HTTP/1.1이라 JS 69개를 연결 6개로 나눠 받음</text>
+              <text x="20" y="274" font-size="12.5" fill="#8a5a44">→ 설정 몇 줄로 가장 크게 줄일 수 있는 건 압축</text>
+
+              <!-- arrow -->
+              <line x1="372" y1="140" x2="398" y2="140" stroke="#999" stroke-width="2" />
+              <polygon points="398,134 408,140 398,146" fill="#999" />
+
+              <!-- RIGHT: what to compress -->
+              <text x="420" y="28" font-size="15" font-weight="700" fill="#222">압축 범위</text>
+
+              <rect x="420" y="48" width="320" height="64" rx="8" fill="#ebfbee" stroke="#2b8a3e" stroke-width="1.5" />
+              <text x="436" y="72" font-size="13" font-weight="700" fill="#2b8a3e">압축함</text>
+              <text x="436" y="94" font-size="12.5" fill="#333">JS · CSS · JSON(API 응답 포함) · SVG</text>
+
+              <rect x="420" y="122" width="320" height="82" rx="8" fill="#fff4ee" stroke="#d9480f" stroke-width="1.5" />
+              <text x="436" y="146" font-size="13" font-weight="700" fill="#d9480f">압축하지 않음</text>
+              <text x="436" y="168" font-size="12.5" fill="#333">스트리밍 응답(SSE): 답변이 뭉쳐서 나옴</text>
+              <text x="436" y="190" font-size="12.5" fill="#333">woff2 · 이미지: 이미 압축된 포맷</text>
+
+              <rect x="420" y="214" width="320" height="64" rx="8" fill="#fff" stroke="#c9d6e8" />
+              <text x="436" y="238" font-size="13" font-weight="700" fill="#222">고객사 설치본</text>
+              <text x="436" y="260" font-size="12.5" fill="#333">빌드할 때 .gz를 미리 만들어 그대로 전송</text>
+            </svg>
+          </div>
+        </section>
+
+        <section class="block">
+          <h3 class="block-title"><span class="block-num">03</span>판단과 이유</h3>
+          <div class="decisions">
+            <div class="decision">
+              <div class="decision-title">첫 API를 앞당기는 방식은 버린다</div>
+              <dl>
+                <dt>상황</dt>
+                <dd>처음에는 첫 API 요청을 HTML 안의 스크립트로 앞당기는 방식(critical-script)으로 줄일 수 있을 거라 봤습니다.</dd>
+                <dt>기각</dt>
+                <dd>서비스가 서버 렌더링 없는 SPA라 붙일 자리가 없었고, 보안 정책(CSP)이 인라인 스크립트를 막았습니다. 무엇보다 앞당겨지는 구간이 <b>0.3~0.8초</b>뿐이었습니다.</dd>
+                <dt>판단</dt>
+                <dd>느린 회선에서는 코드 실행 시간보다 <b>받는 바이트</b>가 먼저라고 보고, 첫 접속에 받는 약 8MB를 구성별로 나눠 가장 적은 변경으로 가장 크게 줄일 수 있는 것부터 손댔습니다.</dd>
+              </dl>
+            </div>
+            <div class="decision">
+              <div class="decision-title">스트리밍 응답은 압축하지 않는다</div>
+              <dl>
+                <dt>상황</dt>
+                <dd>채팅은 LLM 답변을 SSE로 한 줄씩 흘려보냅니다. 이 응답을 압축 대상에 넣으면 nginx가 압축 버퍼가 찰 때까지 모았다가 한꺼번에 보냅니다.</dd>
+                <dt>판단</dt>
+                <dd>답변이 타자 치듯 나오지 않고 뭉텅이로 나오게 되므로 일부러 뺐고, 누가 실수로 넣지 않도록 <b>SSE가 압축 대상에 들어가면 실패하는 테스트</b>를 추가했습니다. 이미 압축된 woff2와 이미지도 CPU만 쓰고 줄지 않아 뺐습니다.</dd>
+              </dl>
+            </div>
+            <div class="decision">
+              <div class="decision-title">설정은 네 번 복사하지 않고 이미지 한 곳에 둔다</div>
+              <dl>
+                <dt>상황</dt>
+                <dd>배포 환경이 dev·prod·슬롯·고객사 설치 네 가지였고, 환경마다 설정 파일이 따로 있었습니다.</dd>
+                <dt>판단</dt>
+                <dd>네 환경 모두 같은 nginx 이미지를 쓰고 환경별 설정 파일 하나만 마운트한다는 점을 확인하고, 압축 설정을 이미지 안의 별도 파일로 넣었습니다. 환경별 설정을 건드리지 않고 모든 배포에 적용되고, 고칠 때도 한 파일만 보면 됩니다.</dd>
+              </dl>
+            </div>
+            <div class="decision">
+              <div class="decision-title">정적 파일은 빌드할 때 한 번만 압축한다</div>
+              <dl>
+                <dt>상황</dt>
+                <dd>요청마다 압축하면 같은 파일을 받는 사람 수만큼 CPU를 씁니다.</dd>
+                <dt>판단</dt>
+                <dd>고객사 설치본은 빌드 직후 가장 강한 압축으로 <code>.gz</code>를 만들어 두고 그대로 내보내게 했습니다. 빌드 결과물을 마운트하는 dev·prod는 <code>.gz</code>가 없어도 요청 시점 압축이 걸리도록 두 설정을 함께 두었습니다.</dd>
+              </dl>
+            </div>
+          </div>
+        </section>
+
+
+        <section class="block">
+          <h3 class="block-title"><span class="block-num">04</span>성과</h3>
+          <table class="result">
+            <thead>
+              <tr>
+                <th>화면 (첫 접속, 위성 조건)</th>
+                <th style="text-align: right">받은 JS</th>
+                <th style="text-align: right">압축 끔</th>
+                <th style="text-align: right">압축 켬</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>로그인</td>
+                <td class="num">2.33MB → 0.71MB</td>
+                <td class="num">11.4초</td>
+                <td class="num delta">4.1초</td>
+              </tr>
+              <tr>
+                <td>홈</td>
+                <td class="num">5.80MB → 1.81MB</td>
+                <td class="num">27.6초</td>
+                <td class="num delta">10.6~13.9초</td>
+              </tr>
+              <tr>
+                <td>채팅</td>
+                <td class="num">5.84MB → 1.82MB</td>
+                <td class="num">27.1초</td>
+                <td class="num delta">10.0~10.7초</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note">
+            LCP 기준, 압축 켬/끔만 다른 두 게이트웨이로 같은 조건에서 화면별 2회씩
+            측정했습니다. 첫 API 요청 시점도 26초에서 9~10초로 당겨졌습니다.
+          </p>
+        </section>
+
+
+        <nav class="next-project"><a href="#tree">← 이전: 공용 트리 통합</a><span></span></nav>
       </article>
 
       <footer>

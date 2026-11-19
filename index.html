@@ -357,12 +357,6 @@
         white-space: nowrap;
       }
 
-      /* 인쇄할 때만 쪽이 나뉘고, 화면에서는 영향 없음 */
-      .page-break {
-        break-before: page;
-        page-break-before: always;
-      }
-
       @media (max-width: 600px) {
         body {
           padding: 20px 16px;
@@ -379,8 +373,9 @@
         body {
           padding: 20px 28px;
         }
-        .section,
         .proj-item,
+        .skill-row,
+        .writing-item,
         .award-row,
         .edu-row,
         ul.bullets li {
@@ -561,12 +556,26 @@
               </li>
             </ul>
           </div>
+
+          <div class="proj-item">
+            <div class="proj-header">
+              <span class="proj-title">위성망 고객 환경의 첫 화면 로딩 27초 → 10초</span>
+            </div>
+            <ul class="bullets">
+              <li>
+                <span class="star-label">문제:</span>위성 회선을 쓰는 고객사 조건을 재현하니 채팅 첫 화면이 약 27초 걸렸습니다(사내망 1.4초).
+              </li>
+              <li>
+                <span class="star-label">판단:</span>첫 API를 앞당기는 방식은 이득이 0.3~0.8초뿐이라 기각하고 <b>받는 양(약 8MB)</b>을 원인으로 보고 nginx 압축을 적용하되, <b>스트리밍 응답은 압축에서 제외</b>했습니다.
+              </li>
+              <li>
+                <span class="star-label">결과:</span>채팅 첫 접속 <b>27.1초 → 약 10초</b>, 받는 JS <b>5.8MB → 1.8MB</b> (압축 전후 A/B 실측).
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- 인쇄 시 기술 스택부터 2쪽 -->
-    <div class="page-break" aria-hidden="true"></div>
 
     <!-- 기술 -->
     <div class="section">
