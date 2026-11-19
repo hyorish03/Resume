@@ -117,9 +117,8 @@
         flex: 1;
       }
       .proj-group-desc a {
-        color: #555;
-        text-decoration: underline;
-        text-underline-offset: 2px;
+        color: inherit;
+        text-decoration: none;
       }
       .proj-group-desc a:hover {
         color: #222;
@@ -135,7 +134,7 @@
         margin-bottom: 26px;
       }
       .section-title {
-        font-size: 10pt;
+        font-size: 11.5pt;
         font-weight: 700;
         letter-spacing: 0.2px;
         color: #111;
@@ -151,7 +150,7 @@
         font-size: 10pt;
       }
       .skill-label {
-        width: 96px;
+        width: 80px;
         font-weight: 600;
         color: #333;
         flex-shrink: 0;
@@ -358,16 +357,38 @@
         white-space: nowrap;
       }
 
+      /* 인쇄할 때만 쪽이 나뉘고, 화면에서는 영향 없음 */
+      .page-break {
+        break-before: page;
+        page-break-before: always;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 20px 16px;
+        }
+        .header-row {
+          flex-wrap: wrap;
+        }
+        .contacts {
+          text-align: left;
+        }
+      }
+
       @media print {
         body {
           padding: 20px 28px;
         }
+        .section,
         .proj-item,
         .award-row,
         .edu-row,
         ul.bullets li {
           break-inside: avoid;
           page-break-inside: avoid;
+        }
+        .section-title {
+          break-after: avoid;
         }
         @page {
           margin: 0;
@@ -381,7 +402,7 @@
     <div class="header-row">
       <div>
         <div class="name">이효린</div>
-        <div class="role">프론트엔드 개발자</div>
+        <div class="role">Frontend Developer</div>
       </div>
       <div class="contacts">
         <a href="mailto:hyorish2001@gmail.com">이메일</a> ·
@@ -394,34 +415,9 @@
 
     <!-- 요약 -->
     <div class="summary">
-      LLM 기반 SQL 성능 진단·튜닝 플랫폼에서 대상 선정, 대시보드, 예약, SQL
-      직접입력 기능을 단독으로 구축한 프론트엔드 개발자입니다. 공통 의존성을 분리해 초기
-      로딩을 개선하고, 타입 기반 설계로 복잡한 입력 조건을 모델링했습니다.
-      AI Agent 기반 E2E 테스트 자동화로 릴리즈 검증 시간을 줄이고
-      회귀를 사전에 탐지했습니다.
-    </div>
-
-    <!-- 기술 -->
-    <div class="section">
-      <div class="section-title">기술 스택</div>
-      <div class="skill-row">
-        <span class="skill-label">Frontend</span
-        ><span class="skill-val"
-          >React, TypeScript, Zustand, TanStack Query, Zod, ECharts</span
-        >
-      </div>
-      <div class="skill-row">
-        <span class="skill-label">Testing</span
-        ><span class="skill-val"
-          >Playwright, RTL, MSW</span
-        >
-      </div>
-      <div class="skill-row">
-        <span class="skill-label">Tool</span
-        ><span class="skill-val"
-          >Vite, Storybook, Orval, Git</span
-        >
-      </div>
+      문제의 원인을 구조에서 찾고 수치로 검증하는 프론트엔드 개발자입니다. LLM
+      플랫폼 두 제품에서 초기 로딩을 <b>FCP 7.6초 → 1.3초</b>로 줄이고, AI
+      Agent로 배포 전 검증을 <b>약 20분 → 약 5분</b>으로 자동화했습니다.
     </div>
 
     <!-- 경력 -->
@@ -483,7 +479,7 @@
                 <span class="star-label">판단:</span><b>세 곳이 서로 다르게 판정하는 것</b>을 원인으로 보고 판정을 한 함수로 모은 뒤, 검증된 값만 <b>판별 유니온</b>으로 좁혀 잘못된 조합을 타입에서 막았습니다.
               </li>
               <li>
-                <span class="star-label">결과:</span>잘못된 요청을 차단하고 <b>27개 조건 조합</b>을 테스트로 고정했습니다.
+                <span class="star-label">결과:</span>잘못된 요청 차단, <b>27개 조건 조합</b> 테스트로 고정.
               </li>
             </ul>
           </div>
@@ -561,11 +557,31 @@
                 <span class="star-label">판단:</span><b>세 훅이 같은 상태를 각자 수정</b>하는 것을 원인으로 보고, <b>조회는 화면이, 상태는 트리가</b> 맡게 나눈 뒤 선택은 객체 대신 ID로 관리했습니다.
               </li>
               <li>
-                <span class="star-label">결과:</span><b>6개 화면의 트리를 하나로 통합</b>했고, 이후 조회 기준이 바뀌었을 때도 트리 수정 없이 대응했습니다.
+                <span class="star-label">결과:</span><b>6개 화면의 트리를 하나로 통합</b>, 이후 조회 기준 변경에도 트리 수정 없이 대응.
               </li>
             </ul>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- 인쇄 시 기술 스택부터 2쪽 -->
+    <div class="page-break" aria-hidden="true"></div>
+
+    <!-- 기술 -->
+    <div class="section">
+      <div class="section-title">기술 스택</div>
+      <div class="skill-row">
+        <span class="skill-label">주력</span
+        ><span class="skill-val"
+          >React, TypeScript, Zustand, TanStack Query, Zod, Playwright, Vitest</span
+        >
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">사용 경험</span
+        ><span class="skill-val"
+          >ECharts, React Testing Library, MSW, Vite, Storybook, Orval</span
+        >
       </div>
     </div>
 
