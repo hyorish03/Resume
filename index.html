@@ -36,9 +36,15 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
+        gap: 16px;
         border-bottom: 2px solid #222;
         padding-bottom: 8px;
-        margin-bottom: 14px;
+        margin-bottom: 16px;
+      }
+      .role {
+        font-size: 11pt;
+        color: #555;
+        margin-top: 2px;
       }
       .name {
         font-size: 22pt;
@@ -46,12 +52,13 @@
         letter-spacing: -0.5px;
       }
       .contacts {
-        font-size: 9pt;
-        color: #444;
+        font-size: 10pt;
+        color: #888;
         text-align: right;
-        line-height: 1.6;
+        line-height: 1.7;
       }
       .contacts a {
+        white-space: nowrap;
         color: #333;
         text-decoration: underline;
         text-underline-offset: 2px;
@@ -130,8 +137,7 @@
       .section-title {
         font-size: 10pt;
         font-weight: 700;
-        letter-spacing: 0.8px;
-        text-transform: uppercase;
+        letter-spacing: 0.2px;
         color: #111;
         border-bottom: 1.5px solid #333;
         padding-bottom: 3px;
@@ -373,19 +379,15 @@
   <body>
     <!-- 헤더 -->
     <div class="header-row">
-      <div class="name">이효린</div>
+      <div>
+        <div class="name">이효린</div>
+        <div class="role">프론트엔드 개발자</div>
+      </div>
       <div class="contacts">
-        <a href="mailto:hyorish2001@gmail.com">hyorish2001@gmail.com</a>
-        &nbsp;|&nbsp;
-        <a href="https://github.com/hyorish03">github.com/hyorish03</a>
-        &nbsp;|&nbsp;
-        <a
-          href="https://www.linkedin.com/in/%ED%9A%A8%EB%A6%B0-%EC%9D%B4-9110b22a1/"
-          >linkedin.com/in/효린-이</a
-        >
-        &nbsp;|&nbsp;
-        <a href="https://hyorish03.tistory.com">hyorish03.tistory.com</a>
-        &nbsp;|&nbsp;
+        <a href="mailto:hyorish2001@gmail.com">이메일</a> ·
+        <a href="https://github.com/hyorish03">깃허브</a> ·
+        <a href="https://www.linkedin.com/in/%ED%9A%A8%EB%A6%B0-%EC%9D%B4-9110b22a1/">링크드인</a> ·
+        <a href="https://hyorish03.tistory.com">블로그</a> ·
         <a href="https://hyorish03.github.io/Resume/portfolio.html">포트폴리오</a>
       </div>
     </div>
@@ -401,7 +403,7 @@
 
     <!-- 기술 -->
     <div class="section">
-      <div class="section-title">Technical Skills</div>
+      <div class="section-title">기술 스택</div>
       <div class="skill-row">
         <span class="skill-label">Frontend</span
         ><span class="skill-val"
@@ -424,7 +426,7 @@
 
     <!-- 경력 -->
     <div class="section">
-      <div class="section-title">Experience &amp; Projects</div>
+      <div class="section-title">경력 및 프로젝트</div>
 
       <!-- 엑셈 -->
       <div class="company-block">
@@ -569,7 +571,7 @@
 
     <!-- Writing -->
     <div class="section">
-      <div class="section-title">Writing</div>
+      <div class="section-title">기술 블로그</div>
       <div class="writing-list">
         <div class="writing-item">
           <a
@@ -600,7 +602,7 @@
 
     <!-- 수상 -->
     <div class="section">
-      <div class="section-title">Awards</div>
+      <div class="section-title">수상</div>
       <div class="award-row">
         <div class="award-left">
           <div class="award-name">Exem 2025 사내 우수 도전·기여 포상</div>
@@ -633,7 +635,7 @@
 
     <!-- 학력 -->
     <div class="section">
-      <div class="section-title">Education</div>
+      <div class="section-title">학력</div>
       <div class="edu-row">
         <div>
           <span class="edu-school">서울과학기술대학교</span> &nbsp;<span
